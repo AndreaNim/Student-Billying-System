@@ -29,4 +29,7 @@ public class StudentService {
     public void deleteStudent(Integer id) {
         studentRepository.deleteById(id);
     }
+
+    public Student StudentByEmail(String email){ return studentRepository.findStudentByEmail(email);
+    }
 }
