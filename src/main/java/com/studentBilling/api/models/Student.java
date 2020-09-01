@@ -1,4 +1,4 @@
-package com.studentBilling.models;
+package com.studentBilling.api.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

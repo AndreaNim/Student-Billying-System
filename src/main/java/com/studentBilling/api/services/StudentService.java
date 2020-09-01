@@ -1,7 +1,7 @@
-package com.studentBilling.services;
+package com.studentBilling.api.services;
 
-import com.studentBilling.models.Student;
-import com.studentBilling.repositories.StudentRepository;
+import com.studentBilling.api.models.Student;
+import com.studentBilling.api.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @Transactional
 public class StudentService {
     @Autowired
-    private StudentRepository studentRepository;
+    StudentRepository studentRepository;
 
     public List<Student> listAllStudents() {
         return studentRepository.findAll();
