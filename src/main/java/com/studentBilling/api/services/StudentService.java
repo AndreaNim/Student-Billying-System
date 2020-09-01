@@ -33,6 +33,10 @@ public class StudentService {
 
     public Student StudentByEmail(String email){ return studentRepository.findStudentByEmail(email);
     }
+    public Student StudentByPassword(String password){ return studentRepository.findStudentByPassword(password);
+    }
+
     public Student StudentByEmailAndPassword(String email,String password){ return studentRepository.findStudentByEmailAndPassword(email, password);
     }
+
 }

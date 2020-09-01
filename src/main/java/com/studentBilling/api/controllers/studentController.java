@@ -60,6 +60,7 @@ public class studentController {
             throw new NotFoundException("invalid email or password ");
 
         try {
+
             Student registred = studentService.StudentByEmailAndPassword(email, password);
             if (registred != null)
                 System.out.println("loged in");
