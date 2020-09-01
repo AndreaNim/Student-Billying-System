@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
    Student findStudentByEmail(String email);
+   Student findStudentByEmailAndPassword(String email,String password);
 
 }
