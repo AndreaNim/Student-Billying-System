@@ -13,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @RestController
@@ -86,6 +83,16 @@ public class studentController {
         }
 
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable(value = "id") int studentId)throws NotFoundException  {
+        try {
+            Student student = studentService.getStudent(studentId);
+            return new ResponseEntity<Student>(student, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     private Map<String, String> generateJWTToken(Student student) {
         long timestamp = System.currentTimeMillis();

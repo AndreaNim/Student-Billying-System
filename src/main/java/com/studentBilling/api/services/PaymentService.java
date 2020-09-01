@@ -31,5 +31,6 @@ public class PaymentService {
     public void deletePayment(Integer id) {
         paymentRepository.deleteById(id);
     }
+    public Payment getByStudentIdPayment(Integer studentId){ return paymentRepository.findByStudentId(studentId);}
 
 }
