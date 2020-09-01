@@ -19,6 +19,7 @@ public class StudentService {
     }
 
     public void registerStudent(Student student) {
+
         studentRepository.save(student);
     }
 

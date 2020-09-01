@@ -4,9 +4,8 @@ import com.studentBilling.api.exceptions.AuthException;
 import com.studentBilling.api.exceptions.NotFoundException;
 import com.studentBilling.api.models.Student;
 import com.studentBilling.api.services.StudentService;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +31,8 @@ public class studentController {
     @PostMapping("/register")
     public void add(@RequestBody Student student) {
         try {
-
+            String hashedPassword = BCrypt.hashpw(student.getPassword(), BCrypt.gensalt(10));
+            student.setPassword(hashedPassword);
             String email = student.getEmail();
             //email format
             Pattern pattern = Pattern.compile("^(.+)@(.+)$");
