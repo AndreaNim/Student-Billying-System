@@ -27,45 +27,78 @@
     </div>
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <input type="email" class="form-control" id="email"  name="email">
     </div>
     <div class="form-group">
       <label for="pwd">Password:</label>
       <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
     </div>
     <div class="form-group">
-        <label for="student_tele_number">Gender:</label>
-        <div class="checkbox">
-            <label><input type="checkbox" name="F"> Female</label>
-            <label><input type="checkbox" name="M"> Male</label>
+        <label for="gender">Gender:</label>
+        <div >
+          <select name="gender" id="gender">
+            <option value="F" id="F">Female</option>
+            <option value="M" id="M">Male</option>
+          </select>
+            
           </div>
     </div>
-    
-    
     <button type="submit" class="btn btn-default">Submit</button>
+    <div class="form-group">
+      <br>
+      <h3 id="message"></h3>
+    </div>
   </form>
 </div>
+
+
 <script>
-    const loginform=document.getElementById("loginform");
-  
-    loginform.addEventListener("submit",(event)=>{
+    const registerform=document.getElementById("registerform");
+    registerform.addEventListener("submit",(event)=>{
         event.preventDefault();
+        const firstName=document.getElementById("firstName").value;
+        const lastName=document.getElementById("lastName").value;
+        const student_tele_number=document.getElementById("student_tele_number").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("pwd").value;
+        const gender=document.getElementById("gender").value;
+       
         fetch("http://localhost:8080/students/register",{
         method:"POST",
         headers:{
            'Content-Type': 'application/json'
         },
         body:JSON.stringify({ 
-          "email":"test@gmail.com",
-          "password": "test"
+          "firstName":firstName, 
+          "lastName":lastName, 
+          "student_tele_number":student_tele_number, 
+          "email":email,
+          "password": password,
+          "gender":gender,
+          "date_of_birth":"2012-12-01"
         })
         }).then(res => {
-          return res.json();
+          console.log(res)
+          if(!res.ok){
+            return Promise.reject(res.json())
+          }
+            return res.json();
         })
-        
-        .then (data => console.log(data))
-        .catch(error=> console.log("error"))
+        .then (data => {
+           document.getElementById("message").innerHTML = 'success';
+           window.location.replace("login.html")
+          }).catch((error)=>{
+            if(error.message){
+              document.getElementById("message").innerHTML = error.message;
+            }else{
+              error.then(resp =>{
+              console.log("error")
+              console.log(resp.message)
+              document.getElementById("message").innerHTML = resp.message;
+            })
+            }
 
+          })
     });
     
     

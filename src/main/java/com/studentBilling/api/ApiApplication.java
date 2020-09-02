@@ -47,7 +47,7 @@ public class ApiApplication {
 				registry.addMapping("/**").
 						allowedOrigins("*")
 						.allowedHeaders("*")
-						.allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
+						.allowedMethods("GET", "POST", "PUT", "DELETE","OPTIONS")
 						.allowCredentials(true);
 			}
 		};

@@ -1,20 +1,18 @@
 package com.studentBilling.api.controllers;
 
+import com.studentBilling.api.exceptions.AuthException;
 import com.studentBilling.api.exceptions.NotFoundException;
 import com.studentBilling.api.models.Payment;
-import com.studentBilling.api.models.Student;
+import com.studentBilling.api.models.School;
 import com.studentBilling.api.services.PaymentService;
-import com.studentBilling.api.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -22,23 +20,35 @@ import java.util.NoSuchElementException;
 public class paymentController {
     @Autowired
     PaymentService paymentService;
+
     @GetMapping("")
-    public String AllPayments(HttpServletRequest request) {
-        String email = (String) request.getAttribute("email");
-        return "ayth"+email;
+    public List<Payment> allPayments() {
+        try {
+            return paymentService.listAllPayments();
+        } catch (Exception e) {
+            throw new NotFoundException("Payments could not found");
+
+        }
 
     }
+    @PostMapping("/addPayment")
+    public ResponseEntity<Map<String, String>> addPayment(@RequestBody Payment payment) {
+        try {
+            String paymentDatetime=payment.getPayment_datetime();
+            double paymentAmount=payment.getPayment();
+            int studentId = payment.getStudentId();
+            int tuitionPlan=payment.getTuitionPlanId();
+            if (studentId >0 && tuitionPlan>0){
+                paymentService.addPayment(payment);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else
+                throw new AuthException("Invalid student Id or Tuition Plan Id");
 
-
-//    @GetMapping("")
-//    public List<Payment> AllPayments() {
-//        try {
-//            return paymentService.listAllPayments();
-//        } catch (Exception e) {
-//            throw new NotFoundException("payments could not found");
-//
-//        }
-//    }
+        } catch (Exception e) {
+            throw new AuthException(e.getMessage());
+        }
+    }
     @GetMapping("/{studentid}")
     public ResponseEntity<Payment> getById(@PathVariable(value = "studentid") int studentId)throws NotFoundException  {
         try {

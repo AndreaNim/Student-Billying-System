@@ -11,31 +11,48 @@
 <body>
 
 <div class="container">
-  <h2>Login form</h2>
-  <form action="/action_page.php" id="loginform" >
+  <h2>Invoice</h2>
+  <form action="/action_page.php" id="invoiceform" >
     <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <label for="email">Invoice Number:</label><label for="invoicenumber" id="invoicenumber" placeholder="number"></label>
     </div>
     <div class="form-group">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-    </div>
-    <div class="checkbox">
-      <label><input type="checkbox" name="remember"> Remember me</label>
-    </div>
-    <button type="submit" class="btn btn-default" style="background-color:#4CAF50;">Submit</button>
-    <div class="form-group">
-      <br>
-      <h3 id="message"></h3>
-    </div>
+        <label for="email">Invoice Date:</label><label for="invoicedate" id="invoicedate" placeholder="date"></label>
+      </div>
   </form>
   <div class="form-group">
-    <h5 id="login"> Don't have an account <a href="register.html">Sign Up </a></h5>
+    <table>
+        <tr>
+          <th>Description</th>
+          <th>Amount</th>
+        </tr>
+        <tr>
+            <td id="description" placeholder="description"></td>
+            <td id="amount" placeholder=amount></td>
+          </tr>
+    </table>
   </div>
+</form>
+<h4 id="message"> THANK YOU </h4>
 </div>
 
-
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
   
   
   
@@ -43,19 +60,14 @@
     const loginform=document.getElementById("loginform");
     
     loginform.addEventListener("submit",(event)=>{
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("pwd").value;
-
+        const jwt=localStorage.getItem("token");
         event.preventDefault();
-        fetch("http://localhost:8080/students/login",{
-        method:"POST",
+        fetch("http://localhost:8080/payments",{
+        method:"GET",
         headers:{
+        'Authorization': 'Bearer'+""+jwt,
            'Content-Type': 'application/json'
         },
-        body:JSON.stringify({ 
-          "email":email,
-          "password": password
-        })
         }).then(res => {
           console.log(res)
           if(!res.ok){
@@ -64,11 +76,8 @@
             return res.json();
         })
         .then (data => {
-           localStorage.setItem("token",data.token);
-           localStorage.setItem("loginemail",email);
            document.getElementById("message").innerHTML = 'success';
            window.location.replace("payment.html")
-          
           }).catch((error)=>{
             if(error.message){
               document.getElementById("message").innerHTML = error.message;

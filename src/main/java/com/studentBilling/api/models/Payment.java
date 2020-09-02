@@ -8,19 +8,21 @@ import javax.persistence.Id;
 @Entity
 public class Payment {
     private int paymentId;
+    private String payment_datetime;
+    private double payment;
     private int studentId;
     private int tuitionPlanId;
-    private String date;
-    private double payment;
+
+
 
     public Payment() {
     }
 
-    public Payment(int paymentId, int studentId, int tuitionPlanId, String date, double payment) {
+    public Payment(int paymentId, int studentId, int tuitionPlanId, String payment_datetime, double payment) {
         this.paymentId = paymentId;
         this.studentId = studentId;
         this.tuitionPlanId = tuitionPlanId;
-        this.date = date;
+        this.payment_datetime = payment_datetime;
         this.payment = payment;
     }
     @Id
@@ -49,12 +51,12 @@ public class Payment {
         this.tuitionPlanId = tuitionPlanId;
     }
 
-    public String getDate() {
-        return date;
+    public String getPayment_datetime() {
+        return payment_datetime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setPayment_datetime(String date) {
+        this.payment_datetime = date;
     }
 
     public double getPayment() {

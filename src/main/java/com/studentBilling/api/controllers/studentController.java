@@ -53,7 +53,7 @@ public class studentController {
             return new ResponseEntity<>(generateJWTToken(student), HttpStatus.OK);
 
         } catch (Exception e) {
-            throw new AuthException("There is already an account registered with that email");
+            throw new AuthException(e.getMessage());
         }
     }
 

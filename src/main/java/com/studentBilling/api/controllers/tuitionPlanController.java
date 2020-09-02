@@ -28,11 +28,14 @@ public class tuitionPlanController {
         try {
             String planName=tuitionPlan.getTuitionPlanName();
             int schoolId = tuitionPlan.getSchoolId();
-            tuitionPlanService.addTuitionPlan(tuitionPlan);
-            return new ResponseEntity<>(HttpStatus.OK);
+            if(schoolId>0){
+                tuitionPlanService.addTuitionPlan(tuitionPlan);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else throw new AuthException("Invalid student Id");
 
         } catch (Exception e) {
-            throw new AuthException("There is already an school registered with that name");
+            throw new AuthException(e.getMessage());
         }
     }
 
