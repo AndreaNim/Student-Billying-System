@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Billying System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Registration form</h2>
+  <form action="/action_page.php" id="registerform">
+    <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="firstName" class="form-control" id="firstName" placeholder="Enter First Name" name="firstName">
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="lastName" class="form-control" id="lastName" placeholder="Enter Last Name" name="lastName">
+    </div>
+    <div class="form-group">
+        <label for="student_tele_number">Telephone number:</label>
+        <input type="student_tele_number" class="form-control" id="student_tele_number" placeholder="Enter student_tele_number" name="student_tele_number">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+    </div>
+    <div class="form-group">
+        <label for="student_tele_number">Gender:</label>
+        <div class="checkbox">
+            <label><input type="checkbox" name="F"> Female</label>
+            <label><input type="checkbox" name="M"> Male</label>
+          </div>
+    </div>
+    
+    
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
+<script>
+    const loginform=document.getElementById("loginform");
+  
+    loginform.addEventListener("submit",(event)=>{
+        event.preventDefault();
+        fetch("http://localhost:8080/students/register",{
+        method:"POST",
+        headers:{
+           'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({ 
+          "email":"test@gmail.com",
+          "password": "test"
+        })
+        }).then(res => {
+          return res.json();
+        })
+        
+        .then (data => console.log(data))
+        .catch(error=> console.log("error"))
+
+    });
+    
+    
+</script>
+</body>
+</html>
+
