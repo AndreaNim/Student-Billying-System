@@ -1,13 +1,11 @@
 package com.studentBilling.api.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class School {
     private int schoolId;
+    @Column(unique=true)
     private String schoolName;
     private String schoolType;
 

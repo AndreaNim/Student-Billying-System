@@ -17,6 +17,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/students")
 public class studentController {
 
@@ -28,7 +29,7 @@ public class studentController {
         try {
             return studentService.listAllStudents();
         } catch (Exception e) {
-            throw new NotFoundException("resoures(student) could not found");
+            throw new NotFoundException("students could not found");
 
         }
     }
@@ -57,13 +58,13 @@ public class studentController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> lodinuser(@RequestBody Student student) {
+    public ResponseEntity<Map<String, String>> loginnuser(@RequestBody Student student) {
         String email = student.getEmail();
         String password = student.getPassword();
         System.out.println(student.getEmail());
         System.out.println(student.getPassword());
         if (email.isEmpty() || password.isEmpty())
-            throw new NotFoundException("invalid email or password ");
+            throw new NotFoundException("Invalid email or password ");
 
         try {
 
@@ -71,7 +72,7 @@ public class studentController {
             System.out.println(registredEmail.getPassword());
 
             if(!BCrypt.checkpw(password, registredEmail.getPassword())){
-                throw new AuthException("Invalid email/password");
+                throw new AuthException("Invalid email or password");
             }
             else {
                 System.out.println("login sucessful");
@@ -79,7 +80,7 @@ public class studentController {
             }
 
         } catch (Exception e) {
-            throw new AuthException("invalid email or password");
+            throw new AuthException("Invalid email or password");
         }
 
     }
