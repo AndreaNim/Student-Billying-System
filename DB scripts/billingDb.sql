@@ -1,4 +1,4 @@
-
+CREATE DATABASE billingDB;
 create table billingDB.school(
 school_id int NOT NULL AUTO_INCREMENT primary key,
 school_type  enum('Private','Public') NOT NULL ,
