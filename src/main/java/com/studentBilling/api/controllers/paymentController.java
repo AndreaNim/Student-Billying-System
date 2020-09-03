@@ -56,7 +56,9 @@ public class paymentController {
     @GetMapping("/{id}")
     public ResponseEntity<Payment> getById(@PathVariable(value = "id") int paymentId)throws NotFoundException  {
         try {
-
+            if(paymentService.getByStudentIdPayment(paymentId).isEmpty()){
+                throw new NotFoundException("Payments could not found");
+            }
             Payment payment = paymentService.getPayment(paymentId);
             return new ResponseEntity<Payment>(payment, HttpStatus.OK);
         } catch (NoSuchElementException e) {
