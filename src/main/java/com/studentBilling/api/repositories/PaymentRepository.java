@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     List<Payment> findByStudentId(Integer studentId);
-    List<Payment> findByStudentEmail(String studentEmail);
+    Payment findByStudentEmail(String studentEmail);
 
 }

@@ -4,6 +4,7 @@ import com.studentBilling.api.exceptions.AuthException;
 import com.studentBilling.api.exceptions.NotFoundException;
 import com.studentBilling.api.models.Payment;
 import com.studentBilling.api.models.School;
+import com.studentBilling.api.models.Student;
 import com.studentBilling.api.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,11 @@ public class paymentController {
     public ResponseEntity<Map<String, String>> addPayment(@RequestBody Payment payment) {
         try {
             double paymentAmount=payment.getPayment();
-            int studentId = payment.getStudentId();
+            String studentEmail=payment.getStudentEmail();
+            Payment registredEmail = paymentService.getByStudentEmailPayment(studentEmail);
+            int studentId = registredEmail.getStudentId();
+            System.out.println(studentId);
+            payment.setStudentId(studentId);
             int tuitionPlan=payment.getTuitionPlanId();
             if ((studentId >0 && tuitionPlan>0) && (paymentAmount>0)){
                 paymentService.addPayment(payment);
@@ -67,14 +72,6 @@ public class paymentController {
 
         }
     }
-    @GetMapping("/studentEmail/{email}")
-    public List<Payment> getPaymentByStudentId(@PathVariable(value = "email") String email)throws NotFoundException  {
-        try {
-            return paymentService.getByStudentEmailPayment(email);
-        } catch (Exception e) {
-            throw new NotFoundException("Payments could not found");
 
-        }
-    }
 
 }

@@ -34,7 +34,7 @@ public class PaymentService {
     public List<Payment> getByStudentIdPayment(Integer studentId){
         return paymentRepository.findByStudentId(studentId);
     }
-    public List<Payment> getByStudentEmailPayment(String studentEmail){
+    public Payment getByStudentEmailPayment(String studentEmail){
         return paymentRepository.findByStudentEmail(studentEmail);
     }
 
