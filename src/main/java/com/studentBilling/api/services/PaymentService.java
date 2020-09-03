@@ -31,10 +31,12 @@ public class PaymentService {
     public void deletePayment(Integer id) {
         paymentRepository.deleteById(id);
     }
-    public List<Payment> getByStudentIdPayment(Integer studentId){
+
+    public List<Payment> getByStudentIdPayment(Integer studentId) {
         return paymentRepository.findByStudentId(studentId);
     }
-    public Payment getByStudentEmailPayment(String studentEmail){
+
+    public Payment getByStudentEmailPayment(String studentEmail) {
         return paymentRepository.findByStudentEmail(studentEmail);
     }
 

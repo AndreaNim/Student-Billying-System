@@ -8,7 +8,7 @@ public class Student {
     private String firstName;
     private String lastName;
     private int student_tele_number ;
-    @Column(unique=true)
+    @Column(unique = true)
     private String email ;
     private String password;
     private String gender;

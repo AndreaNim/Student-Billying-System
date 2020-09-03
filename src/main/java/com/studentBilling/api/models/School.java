@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class School {
     private int schoolId;
-    @Column(unique=true)
+    @Column(unique = true)
     private String schoolName;
     private String schoolType;
 
@@ -17,6 +17,7 @@ public class School {
 
     public School() {
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getSchoolId() {

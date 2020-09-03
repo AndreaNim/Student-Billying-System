@@ -32,31 +32,32 @@ public class paymentController {
         }
 
     }
+
     @PostMapping("/addPayment")
     public ResponseEntity<Map<String, String>> addPayment(@RequestBody Payment payment) {
         try {
-            double paymentAmount=payment.getPayment();
-            String studentEmail=payment.getStudentEmail();
+            double paymentAmount = payment.getPayment();
+            String studentEmail = payment.getStudentEmail();
             Payment registredEmail = paymentService.getByStudentEmailPayment(studentEmail);
             int studentId = registredEmail.getStudentId();
             System.out.println(studentId);
             payment.setStudentId(studentId);
-            int tuitionPlan=payment.getTuitionPlanId();
-            if ((studentId >0 && tuitionPlan>0) && (paymentAmount>0)){
+            int tuitionPlan = payment.getTuitionPlanId();
+            if ((studentId > 0 && tuitionPlan > 0) && (paymentAmount > 0)) {
                 paymentService.addPayment(payment);
                 return new ResponseEntity<>(HttpStatus.OK);
-            }
-            else
+            } else
                 throw new AuthException("Invalid student Id or Tuition Plan Id");
 
         } catch (Exception e) {
             throw new AuthException(e.getMessage());
         }
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Payment> getById(@PathVariable(value = "id") int paymentId)throws NotFoundException  {
+    public ResponseEntity<Payment> getById(@PathVariable(value = "id") int paymentId) throws NotFoundException {
         try {
-            if(paymentService.getByStudentIdPayment(paymentId).isEmpty()){
+            if (paymentService.getByStudentIdPayment(paymentId).isEmpty()) {
                 throw new NotFoundException("Payments could not found");
             }
             Payment payment = paymentService.getPayment(paymentId);
@@ -65,10 +66,11 @@ public class paymentController {
             return new ResponseEntity<Payment>(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping("/studentId/{id}")
-    public List<Payment> getPaymentByStudentId(@PathVariable(value = "id") int studentId)throws NotFoundException  {
+    public List<Payment> getPaymentByStudentId(@PathVariable(value = "id") int studentId) throws NotFoundException {
         try {
-            if(paymentService.getByStudentIdPayment(studentId).isEmpty()){
+            if (paymentService.getByStudentIdPayment(studentId).isEmpty()) {
                 throw new NotFoundException("Payments could not found");
             }
             return paymentService.getByStudentIdPayment(studentId);

@@ -23,22 +23,21 @@ public class tuitionPlanController {
 
         return tuitionPlanService.listAllPlans();
     }
+
     @PostMapping("/addPlan")
     public ResponseEntity<Map<String, String>> addPlan(@RequestBody TuitionPlan tuitionPlan) {
         try {
-            String planName=tuitionPlan.getTuitionPlanName();
+            String planName = tuitionPlan.getTuitionPlanName();
             int schoolId = tuitionPlan.getSchoolId();
-            if(schoolId>0){
+            if (schoolId > 0) {
                 tuitionPlanService.addTuitionPlan(tuitionPlan);
                 return new ResponseEntity<>(HttpStatus.OK);
-            }
-            else throw new AuthException("Invalid student Id");
+            } else throw new AuthException("Invalid school Id");
 
         } catch (Exception e) {
             throw new AuthException(e.getMessage());
         }
     }
-
 
 
 }

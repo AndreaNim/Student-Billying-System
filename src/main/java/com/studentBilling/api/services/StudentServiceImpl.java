@@ -37,7 +37,7 @@ public class StudentServiceImpl extends StudentService {
 
     @Override
     public Student StudentByEmailAndPassword(String email, String password) {
-        if (email != null) email=email.toLowerCase();
+        if (email != null) email = email.toLowerCase();
         return super.StudentByEmailAndPassword(email, password);
     }
 }

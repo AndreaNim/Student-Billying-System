@@ -27,11 +27,11 @@ public class SchoolController {
     SchoolService schoolService;
 
     @GetMapping("")
-    public List<School> AllStudents() {
+    public List<School> AllSchools() {
         try {
             return schoolService.listAllSchools();
         } catch (Exception e) {
-            throw new NotFoundException("Students could not found");
+            throw new NotFoundException("Schools could not found");
 
         }
     }

@@ -31,10 +31,12 @@ public class StudentService {
         studentRepository.deleteById(id);
     }
 
-    public Student StudentByEmail(String email){ return studentRepository.findStudentByEmail(email);
+    public Student StudentByEmail(String email) {
+        return studentRepository.findStudentByEmail(email);
     }
 
-    public Student StudentByEmailAndPassword(String email,String password){ return studentRepository.findStudentByEmailAndPassword(email, password);
+    public Student StudentByEmailAndPassword(String email, String password) {
+        return studentRepository.findStudentByEmailAndPassword(email, password);
     }
 
 
