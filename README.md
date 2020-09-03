@@ -1,6 +1,8 @@
 # Student Tuition Billing System
 *The goal of this repository is to create a student tuition billing system.*
+
 ![ER Diagram](ER_Diagram.jpg)
+
 Getting Started
 -----
 Requirements
