@@ -69,13 +69,16 @@ public class studentController {
         try {
 
             Student registredEmail = studentService.StudentByEmail(email);
+            int registredID = registredEmail.getStudentId();
             System.out.println(registredEmail.getPassword());
-
+            System.out.println();
             if(!BCrypt.checkpw(password, registredEmail.getPassword())){
                 throw new AuthException("Invalid email or password");
             }
             else {
                 System.out.println("login sucessful");
+                Map<String, Integer> map = new HashMap<>();
+                map.put("token", registredID);
                 return new ResponseEntity<>(generateJWTToken(student), HttpStatus.OK);
             }
 
@@ -93,7 +96,6 @@ public class studentController {
             return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
         }
     }
-
 
     private Map<String, String> generateJWTToken(Student student) {
         long timestamp = System.currentTimeMillis();

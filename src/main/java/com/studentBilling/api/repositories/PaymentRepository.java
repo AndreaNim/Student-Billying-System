@@ -4,6 +4,10 @@ import com.studentBilling.api.models.Payment;
 import com.studentBilling.api.models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
-    Payment findByStudentId(Integer studentId);
+    List<Payment> findByStudentId(Integer studentId);
+    List<Payment> findByStudentEmail(String studentEmail);
+
 }

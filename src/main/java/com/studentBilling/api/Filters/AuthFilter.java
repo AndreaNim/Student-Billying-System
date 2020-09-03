@@ -20,6 +20,14 @@ public class AuthFilter  extends GenericFilterBean {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
         String authHeader = httpRequest.getHeader("Authorization");
+        if (httpRequest.getMethod().equalsIgnoreCase("OPTIONS")){
+            httpResponse.setHeader("Access-Control-Allow-Origin","*");
+            httpResponse.setHeader("Access-Control-Allow-Methods","GET, POST, PUT, DELETE,OPTIONS");
+            httpResponse.setHeader("Access-Control-Max-Age","3600");
+            httpResponse.addHeader("Access-Control-Allow-Headers","authorization,content-type,xsrf-token");
+            httpResponse.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
         if(authHeader != null) {
             String[] authHeaderArr = authHeader.split("Bearer ");
             if(authHeaderArr.length > 1 && authHeaderArr[1] != null) {
@@ -29,7 +37,7 @@ public class AuthFilter  extends GenericFilterBean {
                             .parseClaimsJws(token).getBody();
                     httpRequest.setAttribute("email", (claims.get("email").toString()));
                 }catch (Exception e) {
-                    httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "invalid/expired token");
+                    httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "Invalid/expired token Please do login again");
                     return;
                 }
             } else {

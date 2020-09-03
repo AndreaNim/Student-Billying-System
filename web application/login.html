@@ -26,13 +26,14 @@
     </div>
     <button type="submit" class="btn btn-default" style="background-color:#4CAF50;">Submit</button>
     <div class="form-group">
+      <h5 id="login"> Don't have an account <a href="register.html">Sign Up </a></h5>
+    </div>
+    <div class="form-group">
       <br>
       <h3 id="message"></h3>
     </div>
   </form>
-  <div class="form-group">
-    <h5 id="login"> Don't have an account <a href="register.html">Sign Up </a></h5>
-  </div>
+  
 </div>
 
 
@@ -66,16 +67,20 @@
         .then (data => {
            localStorage.setItem("token",data.token);
            localStorage.setItem("loginemail",email);
-           document.getElementById("message").innerHTML = 'success';
+           document.getElementById("message").innerHTML = 'Login success';
+           window.alert('Login success');
            window.location.replace("payment.html")
           
           }).catch((error)=>{
             if(error.message){
+              window.alert(error.message);
               document.getElementById("message").innerHTML = error.message;
+              window.alert(error.message);
             }else{
               error.then(resp =>{
               console.log("error")
               console.log(resp.message)
+              window.alert(resp.message);
               document.getElementById("message").innerHTML = resp.message;
             })
             }

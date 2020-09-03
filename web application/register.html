@@ -85,15 +85,19 @@
             return res.json();
         })
         .then (data => {
-           document.getElementById("message").innerHTML = 'success';
+           document.getElementById("message").innerHTML = ' Registration is success';
+           window.alert(' Registration is success');
            window.location.replace("login.html")
           }).catch((error)=>{
             if(error.message){
+              window.alert(error.message);
               document.getElementById("message").innerHTML = error.message;
+             
             }else{
               error.then(resp =>{
               console.log("error")
               console.log(resp.message)
+              window.alert(resp.message);
               document.getElementById("message").innerHTML = resp.message;
             })
             }

@@ -12,18 +12,19 @@ public class Payment {
     private double payment;
     private int studentId;
     private int tuitionPlanId;
-
+    private String studentEmail;
 
 
     public Payment() {
     }
 
-    public Payment(int paymentId, int studentId, int tuitionPlanId, String payment_datetime, double payment) {
+    public Payment(int paymentId, int studentId, int tuitionPlanId, String payment_datetime, double payment,String studentEmail) {
         this.paymentId = paymentId;
         this.studentId = studentId;
         this.tuitionPlanId = tuitionPlanId;
         this.payment_datetime = payment_datetime;
         this.payment = payment;
+        this.studentEmail=studentEmail;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,5 +66,13 @@ public class Payment {
 
     public void setPayment(double payment) {
         this.payment = payment;
+    }
+
+    public String getStudentEmail() {
+        return studentEmail;
+    }
+
+    public void setStudentEmail(String studentEmail) {
+        this.studentEmail = studentEmail;
     }
 }

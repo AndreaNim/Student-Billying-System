@@ -34,11 +34,10 @@ public class paymentController {
     @PostMapping("/addPayment")
     public ResponseEntity<Map<String, String>> addPayment(@RequestBody Payment payment) {
         try {
-            String paymentDatetime=payment.getPayment_datetime();
             double paymentAmount=payment.getPayment();
             int studentId = payment.getStudentId();
             int tuitionPlan=payment.getTuitionPlanId();
-            if (studentId >0 && tuitionPlan>0){
+            if ((studentId >0 && tuitionPlan>0) && (paymentAmount>0)){
                 paymentService.addPayment(payment);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
@@ -49,13 +48,32 @@ public class paymentController {
             throw new AuthException(e.getMessage());
         }
     }
-    @GetMapping("/{studentid}")
-    public ResponseEntity<Payment> getById(@PathVariable(value = "studentid") int studentId)throws NotFoundException  {
+    @GetMapping("/{id}")
+    public ResponseEntity<Payment> getById(@PathVariable(value = "id") int paymentId)throws NotFoundException  {
         try {
-            Payment payment = paymentService.getByStudentIdPayment(studentId);
+
+            Payment payment = paymentService.getPayment(paymentId);
             return new ResponseEntity<Payment>(payment, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Payment>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/studentId/{id}")
+    public List<Payment> getPaymentByStudentId(@PathVariable(value = "id") int studentId)throws NotFoundException  {
+        try {
+            return paymentService.getByStudentIdPayment(studentId);
+        } catch (Exception e) {
+            throw new NotFoundException("Payments could not found");
+
+        }
+    }
+    @GetMapping("/studentEmail/{email}")
+    public List<Payment> getPaymentByStudentId(@PathVariable(value = "email") String email)throws NotFoundException  {
+        try {
+            return paymentService.getByStudentEmailPayment(email);
+        } catch (Exception e) {
+            throw new NotFoundException("Payments could not found");
+
         }
     }
 
