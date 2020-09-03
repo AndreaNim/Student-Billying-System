@@ -66,7 +66,12 @@ public class paymentController {
     @GetMapping("/studentId/{id}")
     public List<Payment> getPaymentByStudentId(@PathVariable(value = "id") int studentId)throws NotFoundException  {
         try {
+            if(paymentService.getByStudentIdPayment(studentId).isEmpty()){
+                throw new NotFoundException("Payments could not found");
+            }
             return paymentService.getByStudentIdPayment(studentId);
+
+
         } catch (Exception e) {
             throw new NotFoundException("Payments could not found");
 
