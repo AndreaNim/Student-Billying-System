@@ -28,6 +28,18 @@ payment_datetime date ,
 payment decimal(15,2),
 student_id int,
 tuition_plan_id  int,
+student_email varchar(50),
 FOREIGN KEY (student_id) REFERENCES student(student_id),
 FOREIGN KEY (tuition_plan_id) REFERENCES tuition_plan(tuition_plan_id)
 );
+INSERT INTO billingDB.school (school_type,School_name) values ("Public","School 1");
+INSERT INTO billingDB.student (first_name, last_name, student_tele_number, email,password,gender,date_of_birth,school_id) VALUES ("Ann",
+   "perera",
+   1324423453,
+   "test@gmail.com",
+   "test",
+   "F",
+    "2012-12-01",1); 
+INSERT INTO billingDB.tuition_plan (tuition_plan_name,school_id) VALUES ("plan 1",1);   
+INSERT INTO billingDB.payment (payment_datetime,payment,student_id,tuition_plan_id,student_email) VALUES ("2020-09-03",56.00,1,1,"test@gmail.com");   
+    

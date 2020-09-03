@@ -5,7 +5,9 @@ Getting Started
 Requirements
 
 1.Maven 3.0+
+
 2.IDE(Eclipse or IntelliJ)
+
 3.JDK 1.8+
 
 **Step 1: Create the Spring Boot Project from [Spring Initializr](https://start.spring.io)**
