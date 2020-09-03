@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Billying System</title>
   <meta charset="utf-8">
@@ -15,205 +16,209 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="payment.html">Home</a></li>
-     
+
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a id="useremail"href="#"><span class="glyphicon glyphicon-user"></span>  </a></li>
+      <li><a id="useremail" href="#"><span class="glyphicon glyphicon-user"></span> </a></li>
       <li><a href="login.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
   </div>
 </nav>
+
 <body onload="FunctionOnload()">
   <div class="container">
     <div><input type="studentID" class="form-control" id="studentID" placeholder="Enter student ID" name="studentID">
-    <button type="submit" onClick="search()" class="btn btn-default" style="background-color:#4CAF50;">Search student payment</button></div>
+      <button type="submit" onClick="search()" class="btn btn-default" style="background-color:#4CAF50;">Search student
+        payment</button></div>
   </div>
-<div class="container">
-  
-  <h2>Invoice</h2>
-  <form action="/action_page.php" id="invoiceform" >
-    
-    
-    <div class="form-group">
+  <div class="container">
+
+    <h2>Invoice</h2>
+    <form action="/action_page.php" id="invoiceform">
+
+
+      <div class="form-group">
         <label for="email">Invoice Date:</label><label for="invoicedate" id="invoicedate" placeholder="date"></label>
       </div>
-  <div class="form-group" onload="CreateTableFromJSON()">
-    <p id="showData"></p>
+      <div class="form-group" onload="CreateTableFromJSON()">
+        <p id="showData"></p>
+      </div>
+    </form>
+    <h4 id="message"> </h4>
   </div>
-</form>
-<h4 id="message"> </h4>
-</div>
 
-<style>
+  <style>
     table {
       font-family: arial, sans-serif;
       border-collapse: collapse;
       width: 100%;
     }
-    
-    td, th {
+
+    td,
+    th {
       border: 1px solid #dddddd;
       text-align: left;
       padding: 8px;
     }
-    
+
     tr:nth-child(even) {
       background-color: #dddddd;
     }
-    
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  li {
-    display: inline;
-  }
-  </style>
-    
-  
-  
-  
-<script>
-  function search() {
-    const studentID=document.getElementById("studentID");
-    const id = document.getElementById("studentID").value;
-    console.log(id)
-        event.preventDefault();
-        const jwt=localStorage.getItem("token");
-        fetch("http://localhost:8080/payments/studentId/"+id,{
-        method:"GET",
-        headers:{
-        'Authorization': 'Bearer'+" "+jwt,
-           'Content-Type': 'application/json'
-        },
-        }).then(res => {
-          console.log(res)
-          if(!res.ok){
-            return Promise.reject(res.json())
-          }
-            return res.json();
-        })
-        .then (data => {
-          console.log(data)
-          CreateTableFromJSON(data)
-          document.getElementById("message").innerHTML = 'THANK YOU';
-          }).catch((error)=>{
-            if(error.message){
-              document.getElementById("message").innerHTML = error.message;
-              window.alert(error.message);
-             
-            }else{
-              error.then(resp =>{
-              console.log("error")
-              console.log(resp.message)
-              window.alert(resp.message);
-              document.getElementById("message").innerHTML = resp.message;
-            })
-            }
 
-          })
-    
-
-    
-  }
-    
-
-  
-  
-  
-
-  function FunctionOnload() {
-    var today = new Date();
-    const date=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-
-    const email=localStorage.getItem("loginemail");
-    document.getElementById("useremail").innerHTML =email;
-    document.getElementById("invoicedate").innerHTML =date;
-    event.preventDefault();
-    const jwt=localStorage.getItem("token");
-    fetch("http://localhost:8080/payments",{
-        method:"GET",
-        headers:{
-        'Authorization': 'Bearer'+" "+jwt,
-           'Content-Type': 'application/json'
-        },
-        }).then(res => {
-          console.log(res)
-          if(!res.ok){
-            return Promise.reject(res.json())
-          }
-            return res.json();
-        })
-        .then (data => {
-          console.log(data)
-          CreateTableFromJSON(data)
-          document.getElementById("message").innerHTML = 'THANK YOU';
-          }).catch((error)=>{
-            if(error.message){
-              document.getElementById("message").innerHTML = error.message;
-              window.alert(error.message);
-              window.location.replace("login.html")
-            }else{
-              error.then(resp =>{
-              console.log("error")
-              console.log(resp.message)
-              window.alert(resp.message);
-              document.getElementById("message").innerHTML = resp.message;
-            })
-            }
-
-          })
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
     }
-    
-    function CreateTableFromJSON(Payments){
-     
-       // EXTRACT VALUE FOR HTML HEADER. 
-        //  "paymentId","payment_datetime","payment","studentId","tuitionPlanId"
-        var col = [];
-        for (var i = 0; i < Payments.length; i++) {
-            for (var key in Payments[i]) {
-                if (col.indexOf(key) === -1) {
-                    col.push(key);
-                }
-            }
+
+    li {
+      display: inline;
+    }
+  </style>
+
+
+
+
+  <script>
+    function search() {
+      const studentID = document.getElementById("studentID");
+      const id = document.getElementById("studentID").value;
+      console.log(id)
+      event.preventDefault();
+      const jwt = localStorage.getItem("token");
+      fetch("http://localhost:8080/payments/studentId/" + id, {
+        method: "GET",
+        headers: {
+          'Authorization': 'Bearer' + " " + jwt,
+          'Content-Type': 'application/json'
+        },
+      }).then(res => {
+        console.log(res)
+        if (!res.ok) {
+          return Promise.reject(res.json())
         }
+        return res.json();
+      })
+        .then(data => {
+          console.log(data)
+          CreateTableFromJSON(data)
+          document.getElementById("message").innerHTML = 'THANK YOU';
+        }).catch((error) => {
+          if (error.message) {
+            document.getElementById("message").innerHTML = error.message;
+            window.alert(error.message);
 
-  // CREATE DYNAMIC TABLE.
-  var table = document.createElement("table");
+          } else {
+            error.then(resp => {
+              console.log("error")
+              console.log(resp.message)
+              window.alert(resp.message);
+              document.getElementById("message").innerHTML = resp.message;
+            })
+          }
 
-  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+        })
 
-    var tr = table.insertRow(-1);                   // TABLE ROW.
 
-    for (var i = 0; i < col.length; i++) {
+
+    }
+
+
+
+
+
+
+    function FunctionOnload() {
+      var today = new Date();
+      const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+      const email = localStorage.getItem("loginemail");
+      document.getElementById("useremail").innerHTML = email;
+      document.getElementById("invoicedate").innerHTML = date;
+      event.preventDefault();
+      const jwt = localStorage.getItem("token");
+      fetch("http://localhost:8080/payments", {
+        method: "GET",
+        headers: {
+          'Authorization': 'Bearer' + " " + jwt,
+          'Content-Type': 'application/json'
+        },
+      }).then(res => {
+        console.log(res)
+        if (!res.ok) {
+          return Promise.reject(res.json())
+        }
+        return res.json();
+      })
+        .then(data => {
+          console.log(data)
+          CreateTableFromJSON(data)
+          document.getElementById("message").innerHTML = 'THANK YOU';
+        }).catch((error) => {
+          if (error.message) {
+            document.getElementById("message").innerHTML = error.message;
+            window.alert(error.message);
+            window.location.replace("login.html")
+          } else {
+            error.then(resp => {
+              console.log("error")
+              console.log(resp.message)
+              window.alert(resp.message);
+              document.getElementById("message").innerHTML = resp.message;
+            })
+          }
+
+        })
+    }
+
+    function CreateTableFromJSON(Payments) {
+
+      // EXTRACT VALUE FOR HTML HEADER. 
+      //  "paymentId","payment_datetime","payment","studentId","tuitionPlanId"
+      var col = [];
+      for (var i = 0; i < Payments.length; i++) {
+        for (var key in Payments[i]) {
+          if (col.indexOf(key) === -1) {
+            col.push(key);
+          }
+        }
+      }
+
+      // CREATE DYNAMIC TABLE.
+      var table = document.createElement("table");
+
+      // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+      var tr = table.insertRow(-1);                   // TABLE ROW.
+
+      for (var i = 0; i < col.length; i++) {
         var th = document.createElement("th");      // TABLE HEADER.
         th.innerHTML = col[i];
         tr.appendChild(th);
-    }
-    // ADD JSON DATA TO THE TABLE AS ROWS.
-    for (var i = 0; i < Payments.length; i++) {
+      }
+      // ADD JSON DATA TO THE TABLE AS ROWS.
+      for (var i = 0; i < Payments.length; i++) {
 
-    tr = table.insertRow(-1);
+        tr = table.insertRow(-1);
 
-    for (var j = 0; j < col.length; j++) {
-        var tabCell = tr.insertCell(-1);
-        tabCell.innerHTML = Payments[i][col[j]];
-}
-}
-// FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+        for (var j = 0; j < col.length; j++) {
+          var tabCell = tr.insertCell(-1);
+          tabCell.innerHTML = Payments[i][col[j]];
+        }
+      }
+      // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
       var divContainer = document.getElementById("showData");
-        divContainer.innerHTML = "";
-        divContainer.appendChild(table);
+      divContainer.innerHTML = "";
+      divContainer.appendChild(table);
 
 
     }
 
-    
-    
 
-    
-</script>
+
+
+
+  </script>
 </body>
+
 </html>
