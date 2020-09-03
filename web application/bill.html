@@ -27,7 +27,7 @@
 
 <body onload="FunctionOnload()">
   <div class="container">
-    <div><input type="studentID" class="form-control" id="studentID" placeholder="Enter student ID" name="studentID">
+    <div><input type="studentID" class="form-control" id="studentID" placeholder="Enter student ID" name="studentID" required>
       <button type="submit" onClick="search()" class="btn btn-default" style="background-color:#4CAF50;">Search student
         payment</button></div>
   </div>
@@ -80,6 +80,7 @@
 
 
   <script>
+    
     function search() {
       const studentID = document.getElementById("studentID");
       const id = document.getElementById("studentID").value;
