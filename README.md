@@ -11,28 +11,44 @@ Requirements
 
 2.IDE(Eclipse or IntelliJ)
 
-3.JDK 1.8+
+3.JDK 11
 
-**Step 1: Create the Spring Boot Project from [Spring Initializr](https://start.spring.io)**
+4.spring boot 2.3.3
 
-- Add the following dependencies
-1.WEB
-2.JPA
-3.MYSQL
 
-- Then click “Generate”. You will find a rar file — extract it. Then open that folder in your favorite IDE.
-
-**Step 2: Create database**
+**Step 1: Create database**
 
 - Create the Databse tables using [Database script](https://github.com/AndreaNim/Student-Billying-System/tree/master/DB%20scripts) in MySQL database server.
 
+- The script will add one record for each table.Manually add records to the tables.
+
+    ```
+    //Inserting values to school table
+    INSERT INTO billingDB.school (school_type,School_name) values ("Public","School 1");
+    //Inserting values to student table
+    INSERT INTO billingDB.student (first_name, last_name, student_tele_number, email,password,gender,date_of_birth,school_id) VALUES ("Ann",
+    "perera",
+    1324423453,
+    "test@gmail.com",
+    "test",
+    "F",
+        "2012-12-01",1); 
+    //Inserting values to tuition plan table
+    INSERT INTO billingDB.tuition_plan (tuition_plan_name,school_id) VALUES ("plan 1",1);   
+    //Inserting values to payment table
+    INSERT INTO billingDB.payment (payment_datetime,payment,student_id,tuition_plan_id,student_email) VALUES ("2020-09-03",56.00,1,1,"test@gmail.com"); 
+    ```
+
 - Define connection properties in /src/main/resources/application.properties
 
-**Step 3: Build and Run the Project**
+**Step 2: Build and Run the Project**
+
 
 - The app will start running at http://localhost:8080.
-
-**Step 4: Run the client application in local web server**
+    ```
+    mvn spring-boot:run
+    ```
+**Step 3: Run the client application in local web server**
 
 - open up the terminal or command prompt
 - navigate to the directory where the files
