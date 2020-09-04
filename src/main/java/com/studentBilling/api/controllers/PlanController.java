@@ -1,9 +1,8 @@
 package com.studentBilling.api.controllers;
 
 import com.studentBilling.api.exceptions.AuthException;
-import com.studentBilling.api.models.TuitionPlan;
-import com.studentBilling.api.services.StudentService;
-import com.studentBilling.api.services.TuitionPlanService;
+import com.studentBilling.api.models.Plan;
+import com.studentBilling.api.services.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,24 +12,24 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/tuitionPlans")
-public class tuitionPlanController {
+@RequestMapping("/plans")
+public class PlanController {
     @Autowired
-    TuitionPlanService tuitionPlanService;
+    PlanService planService;
 
     @GetMapping("")
-    public List<TuitionPlan> AllPlans() {
+    public List<Plan> AllPlans() {
 
-        return tuitionPlanService.listAllPlans();
+        return planService.listAllPlans();
     }
 
-    @PostMapping("/addPlan")
-    public ResponseEntity<Map<String, String>> addPlan(@RequestBody TuitionPlan tuitionPlan) {
+    @PostMapping("/")
+    public ResponseEntity<Map<String, String>> addPlan(@RequestBody Plan plan) {
         try {
-            String planName = tuitionPlan.getTuitionPlanName();
-            int schoolId = tuitionPlan.getSchoolId();
+            String planName = plan.getPlanName();
+            int schoolId = plan.getSchoolId();
             if (schoolId > 0) {
-                tuitionPlanService.addTuitionPlan(tuitionPlan);
+                planService.addTuitionPlan(plan);
                 return new ResponseEntity<>(HttpStatus.OK);
             } else throw new AuthException("Invalid school Id");
 

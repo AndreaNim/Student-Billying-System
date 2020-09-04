@@ -87,6 +87,7 @@ public class studentController {
         }
 
     }
+    ///payments/{}
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable(value = "id") int studentId)throws NotFoundException  {
         try {
@@ -111,5 +112,6 @@ public class studentController {
         map.put("token", token);
         return map;
     }
+
 
 }

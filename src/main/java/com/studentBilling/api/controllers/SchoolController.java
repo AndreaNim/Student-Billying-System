@@ -35,7 +35,7 @@ public class SchoolController {
 
         }
     }
-    @PostMapping("/addSchool")
+    @PostMapping("/")
     public ResponseEntity<Map<String, String>> addSchool(@RequestBody School school) {
         try {
 
