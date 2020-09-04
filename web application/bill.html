@@ -27,7 +27,8 @@
 
 <body onload="FunctionOnload()">
   <div class="container">
-    <div><input type="studentID" class="form-control" id="studentID" placeholder="Enter student ID" name="studentID" required>
+    <div><input type="studentID" class="form-control" id="studentID" placeholder="Enter student ID" name="studentID"
+        required>
       <button type="submit" onClick="search()" class="btn btn-default" style="background-color:#4CAF50;">Search student
         payment</button></div>
   </div>
@@ -77,17 +78,15 @@
   </style>
 
 
-
-
   <script>
-    
+
     function search() {
       const studentID = document.getElementById("studentID");
       const id = document.getElementById("studentID").value;
       console.log(id)
       event.preventDefault();
       const jwt = localStorage.getItem("token");
-      fetch("http://localhost:8080/payments/studentId/" + id, {
+      fetch("http://localhost:8080/students/payments/" + id, {
         method: "GET",
         headers: {
           'Authorization': 'Bearer' + " " + jwt,

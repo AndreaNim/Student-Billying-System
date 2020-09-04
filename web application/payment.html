@@ -62,7 +62,7 @@
   <script>
     function FunctionOnload() {
       const email = localStorage.getItem("loginemail");
-     
+
       document.getElementById("useremail").innerHTML = email;
     }
 
@@ -112,7 +112,7 @@
             error.then(resp => {
               console.log("error")
               console.log(resp.message)
-              document.getElementById("message").innerHTML = " Error"+" "+resp.message;
+              document.getElementById("message").innerHTML = " Error" + " " + resp.message;
             })
           }
 

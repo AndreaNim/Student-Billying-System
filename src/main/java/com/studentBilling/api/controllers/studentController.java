@@ -3,7 +3,9 @@ package com.studentBilling.api.controllers;
 import com.studentBilling.api.Constants.Constants;
 import com.studentBilling.api.exceptions.AuthException;
 import com.studentBilling.api.exceptions.NotFoundException;
+import com.studentBilling.api.models.Payment;
 import com.studentBilling.api.models.Student;
+import com.studentBilling.api.services.PaymentService;
 import com.studentBilling.api.services.StudentService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -24,6 +26,9 @@ public class studentController {
     @Autowired
     StudentService studentService;
 
+    @Autowired
+    PaymentService paymentService;
+
     @GetMapping("")
     public List<Student> AllStudents() {
         try {
@@ -35,7 +40,7 @@ public class studentController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>>addStudent(@RequestBody Student student) {
+    public ResponseEntity<Map<String, String>> addStudent(@RequestBody Student student) {
         try {
             String hashedPassword = BCrypt.hashpw(student.getPassword(), BCrypt.gensalt(10));
             student.setPassword(hashedPassword);
@@ -72,10 +77,9 @@ public class studentController {
             int registredID = registredEmail.getStudentId();
             System.out.println(registredEmail.getPassword());
             System.out.println();
-            if(!BCrypt.checkpw(password, registredEmail.getPassword())){
+            if (!BCrypt.checkpw(password, registredEmail.getPassword())) {
                 throw new AuthException("Invalid email or password");
-            }
-            else {
+            } else {
                 System.out.println("login sucessful");
                 Map<String, Integer> map = new HashMap<>();
                 map.put("token", registredID);
@@ -87,8 +91,24 @@ public class studentController {
         }
 
     }
+
+    @GetMapping("/payments/{id}")
+    public List<Payment> getPaymentByStudentId(@PathVariable(value = "id") int studentId) throws NotFoundException {
+        try {
+            if (paymentService.getByStudentIdPayment(studentId).isEmpty()) {
+                throw new NotFoundException("Payments could not found");
+            }
+            return paymentService.getByStudentIdPayment(studentId);
+
+
+        } catch (Exception e) {
+            throw new NotFoundException("Payments could not found");
+
+        }
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudentById(@PathVariable(value = "id") int studentId)throws NotFoundException  {
+    public ResponseEntity<Student> getStudentById(@PathVariable(value = "id") int studentId) throws NotFoundException {
         try {
             Student student = studentService.getStudent(studentId);
             return new ResponseEntity<Student>(student, HttpStatus.OK);
