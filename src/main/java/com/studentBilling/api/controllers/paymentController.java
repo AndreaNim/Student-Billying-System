@@ -33,7 +33,7 @@ public class paymentController {
 
     }
 
-    @PostMapping("/addPayment")
+    @PostMapping("/")
     public ResponseEntity<Map<String, String>> addPayment(@RequestBody Payment payment) {
         try {
             double paymentAmount = payment.getPayment();

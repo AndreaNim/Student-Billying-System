@@ -81,7 +81,7 @@
       console.log(jwt)
       console.log('Bearer' + " " + jwt)
       event.preventDefault();
-      fetch("http://localhost:8080/payments/addPayment", {
+      fetch("http://localhost:8080/payments/", {
         method: "POST",
         headers: {
           'Authorization': 'Bearer' + " " + jwt,
