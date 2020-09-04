@@ -26,11 +26,13 @@ Requirements
     //Inserting values to school table
     INSERT INTO billingDB.school (school_type,School_name) values ("Public","School 1");
     //Inserting values to student table
+    //email:test@gmail.com
+    //password:test
     INSERT INTO billingDB.student (first_name, last_name, student_tele_number, email,password,gender,date_of_birth,school_id) VALUES ("Ann",
     "perera",
     1324423453,
     "test@gmail.com",
-    "test",
+    "$2a$10$oA774YNJ6nlp0irgcfXtee6SLYgvvWTI/0UIDYG/6q5ylJ1v/7Ybm",
     "F",
         "2012-12-01",1); 
     //Inserting values to tuition plan table

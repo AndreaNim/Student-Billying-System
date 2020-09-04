@@ -37,7 +37,7 @@ INSERT INTO billingDB.student (first_name, last_name, student_tele_number, email
    "perera",
    1324423453,
    "test@gmail.com",
-   "test",
+   "$2a$10$oA774YNJ6nlp0irgcfXtee6SLYgvvWTI/0UIDYG/6q5ylJ1v/7Ybm",
    "F",
     "2012-12-01",1); 
 INSERT INTO billingDB.tuition_plan (tuition_plan_name,school_id) VALUES ("plan 1",1);   

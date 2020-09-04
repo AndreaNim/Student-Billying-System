@@ -62,11 +62,13 @@
   <script>
     function FunctionOnload() {
       const email = localStorage.getItem("loginemail");
+     
       document.getElementById("useremail").innerHTML = email;
     }
 
     const paymentform = document.getElementById("paymentform");
     const email = localStorage.getItem("loginemail");
+    console.log(email)
     paymentform.addEventListener("submit", (event) => {
       const tuitionPlanId = document.getElementById("tuitionPlanId").value;
       var today = new Date();
@@ -81,7 +83,7 @@
       console.log(jwt)
       console.log('Bearer' + " " + jwt)
       event.preventDefault();
-      fetch("http://localhost:8080/payments/", {
+      fetch("http://localhost:8080/payments/addPayment", {
         method: "POST",
         headers: {
           'Authorization': 'Bearer' + " " + jwt,
