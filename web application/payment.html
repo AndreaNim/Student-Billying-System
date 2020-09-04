@@ -75,15 +75,11 @@
       const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
       const paymentAmount = document.getElementById("payment").value;
       const jwt = localStorage.getItem("token");
-      if (isNaN(tuitionPlanId) || isNaN(paymentAmount)) {
-        window.alert("Invalid input");
-      }
-      else
-        console.log(tuitionPlanId, date, paymentAmount)
+      console.log(tuitionPlanId, date, paymentAmount)
       console.log(jwt)
       console.log('Bearer' + " " + jwt)
       event.preventDefault();
-      fetch("http://localhost:8080/payments/addPayment", {
+      fetch("http://localhost:8080/payments/", {
         method: "POST",
         headers: {
           'Authorization': 'Bearer' + " " + jwt,
@@ -116,7 +112,7 @@
             error.then(resp => {
               console.log("error")
               console.log(resp.message)
-              document.getElementById("message").innerHTML = resp.message;
+              document.getElementById("message").innerHTML = " Error"+" "+resp.message;
             })
           }
 

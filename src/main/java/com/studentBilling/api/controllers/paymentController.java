@@ -6,6 +6,7 @@ import com.studentBilling.api.models.Payment;
 import com.studentBilling.api.models.School;
 import com.studentBilling.api.models.Student;
 import com.studentBilling.api.services.PaymentService;
+import com.studentBilling.api.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,8 @@ import java.util.NoSuchElementException;
 public class paymentController {
     @Autowired
     PaymentService paymentService;
+    @Autowired
+    StudentService studentService;
 
     @GetMapping("")
     public List<Payment> allPayments() {
@@ -33,12 +36,12 @@ public class paymentController {
 
     }
 
-    @PostMapping("/addPayment")
+    @PostMapping("/")
     public ResponseEntity<Map<String, String>> addPayment(@RequestBody Payment payment) {
         try {
             double paymentAmount = payment.getPayment();
             String studentEmail = payment.getStudentEmail();
-            Payment registredEmail = paymentService.getByStudentEmailPayment(studentEmail);
+            Student registredEmail = studentService.StudentByEmail(studentEmail);
             int studentId = registredEmail.getStudentId();
             System.out.println(studentId);
             payment.setStudentId(studentId);
